@@ -7,3 +7,4 @@ google-generativeai
 google-genai
 setuptools
 requests
+zstandard==0.22.0
