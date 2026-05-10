@@ -3,3 +3,7 @@ crewai-tools==0.17.0
 streamlit==1.41.0
 python-dotenv==1.0.1
 reportlab==4.2.5
+google-generativeai
+google-genai
+setuptools
+requests
