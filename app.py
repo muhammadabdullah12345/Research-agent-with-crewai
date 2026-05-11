@@ -1,3 +1,17 @@
+import sys
+import importlib
+
+# Patch for missing pkg_resources on some cloud environments
+try:
+    import pkg_resources
+except ImportError:
+    import subprocess
+    subprocess.run([sys.executable, "-m", "pip", "install", "setuptools"], check=True)
+    import pkg_resources
+
+sys.path.insert(0, "src")
+# ... rest of your imports below
+
 import streamlit as st
 import sys
 import os
