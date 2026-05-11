@@ -45,17 +45,16 @@ llm_strong = LLM(
 def get_researcher():
     return Agent(
         role="Senior Research Analyst",
-        goal="Search the web exactly twice and return a concise findings summary",
+        goal="Analyze the provided search results and extract key facts, trends and insights",
         backstory=(
-            "You are an efficient researcher. You run exactly 2 targeted searches, "
-            "extract the most important facts from the results, and stop. "
-            "You do not search more than twice. You write a clear, concise summary."
+            "You are an expert research analyst. You receive raw search results "
+            "and extract the most important facts, statistics, trends, and expert "
+            "opinions. You organize information clearly with sources."
         ),
-        tools=[search_tool],
         llm=llm_fast,
         verbose=True,
         allow_delegation=False,
-        max_iter=2,  # hard cap: search twice then conclude
+        max_iter=1,
     )
 
 
