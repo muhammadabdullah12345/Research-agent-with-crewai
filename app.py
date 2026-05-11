@@ -1,16 +1,19 @@
 import sys
-import importlib
+import os
 
-# Patch for missing pkg_resources on some cloud environments
+# Fix pkg_resources before any crewai imports
 try:
     import pkg_resources
-except ImportError:
-    import subprocess
-    subprocess.run([sys.executable, "-m", "pip", "install", "setuptools"], check=True)
-    import pkg_resources
+except ModuleNotFoundError:
+    import importlib
+    import types
+    # Create a minimal stub so crewai doesn't crash
+    pkg_resources = types.ModuleType("pkg_resources")
+    pkg_resources.require = lambda *a, **k: None
+    pkg_resources.get_distribution = lambda *a, **k: None
+    sys.modules["pkg_resources"] = pkg_resources
 
 sys.path.insert(0, "src")
-# ... rest of your imports below
 
 import streamlit as st
 import sys
