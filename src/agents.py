@@ -11,9 +11,7 @@ except ModuleNotFoundError:
     _pkg.VersionConflict = Exception
     sys.modules["pkg_resources"] = _pkg
 
-
 from crewai import Agent, LLM
-from tools import search_tool
 from dotenv import load_dotenv
 import os
 
