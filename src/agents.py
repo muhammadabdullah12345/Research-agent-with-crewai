@@ -1,3 +1,17 @@
+import sys
+try:
+    import pkg_resources
+except ModuleNotFoundError:
+    import types
+    _pkg = types.ModuleType("pkg_resources")
+    _pkg.require = lambda *a, **k: None
+    _pkg.get_distribution = lambda *a, **k: None
+    _pkg.working_set = []
+    _pkg.DistributionNotFound = Exception
+    _pkg.VersionConflict = Exception
+    sys.modules["pkg_resources"] = _pkg
+
+
 from crewai import Agent, LLM
 from tools import search_tool
 from dotenv import load_dotenv

@@ -1,3 +1,17 @@
+# Fix pkg_resources missing in Streamlit Cloud venv
+import sys
+try:
+    import pkg_resources
+except ModuleNotFoundError:
+    import types
+    _pkg = types.ModuleType("pkg_resources")
+    _pkg.require = lambda *a, **k: None
+    _pkg.get_distribution = lambda *a, **k: None
+    _pkg.working_set = []
+    _pkg.DistributionNotFound = Exception
+    _pkg.VersionConflict = Exception
+    sys.modules["pkg_resources"] = _pkg
+
 from crewai import Crew, Process
 from dotenv import load_dotenv
 from agents import get_researcher, get_analyst, get_fact_checker, get_writer
